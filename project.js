@@ -4,11 +4,13 @@ const directorElement = document.getElementById("director");
 const urlElement = document.querySelector("#url");
 
 
-// UI Başlatma
+// UI objesini Başlatma
 const ui = new UI();
 
-// Tüm eventleri yükleme
+// Storage objesını üret
+const storage = new Storage;
 
+// Tüm eventleri yükleme
 eventListeners();
 
 function eventListeners() {
@@ -24,18 +26,21 @@ function addFilm(e) {
     const url = urlElement.value;
 
     if (title === "" || director === "" || url === "") {
-
+        // Hata
+        ui.displayMessages("Tüm alanları doldurun...", "danger");
 
     } else {
         // Yeni Film
         const newFilm = new Film(title, director, url);
 
         ui.addFilmToUI(newFilm); //Arayüze film ekleme
+        storage.addFilmToStorage(newFilm); //storage ye film ekleme
+        ui.displayMessages("video basarıyla eklendi", "success")
 
 
-        ui.clearInputs(titleElement, directorElement, urlElement);
     }
 
+    ui.clearInputs(titleElement, directorElement, urlElement);
 
     e.preventDefault();
 }
